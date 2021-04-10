@@ -1,4 +1,4 @@
-# Chapter 1 - Creating and Populating a Database
+# Chapter 2 - Creating and Populating a Database
 ## MySQL Data Types
 In general, all the popular database servers have the capacity to store the same types of data, such as strings, dates, and numbers.
 ### Character Data
