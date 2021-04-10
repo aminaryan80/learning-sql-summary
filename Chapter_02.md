@@ -24,7 +24,9 @@ varchar(20) character set latin1
 ```
 #### Text data
 If you need to store data that might exceed the 64 KB limit for *varchar* columns, you will need to use one of the text types.
+
 ![](pictures/ch02/mysql_text_types.png)
+
 Now that MySQL allows up to 65,535 bytes for *varchar* columns (it was limited to 255 bytes in version 4), there isn’t any particular need to use the *tinytext* or *text* type.
 
 If you are creating a column for free-form data entry, such as a *notes* column to hold data about customer interactions with your company’s customer service department, then *varchar* will probably be adequate. If you are storing documents, however, you should choose either the *mediumtext* or *longtext* type.
@@ -35,29 +37,42 @@ Although it might seem reasonable to have a single numeric data type called “n
 - float, High-precision scientific or manufacturing data often requires accuracy to eight decimal points.
 
 To handle these types of data (and more), MySQL has several different numeric data types. The most commonly used numeric types are those used to store whole numbers, or integers.
+
 ![](pictures/ch02/mysql_integer_types.png)
+
 For floating-point numbers (such as 3.1415927), you may choose from the numeric types shown in Table.
+
 ![](pictures/ch02/mysql_floating_point_types.png)
+
 When using a floating-point type, you can specify a *precision* (the total number of allowable digits both to the left and to the right of the decimal point) and a *scale* (the number of allowable digits to the right of the decimal point), but they are not required.
 
 Like the integer types, floating-point columns can be defined as unsigned, but this designation only prevents negative numbers from being stored in the column rather than altering the range of data that may be stored in the column.
 ### Temporal Data
 Along with strings and numbers, you will almost certainly be working with information about dates and/or times. This type of data is referred to as *temporal*.
+
 ![](pictures/ch02/mysql_temporal_types.png)
+
 #### Date format Components
+
 ![](pictures/ch02/date_format_components.png)
+
 ## Table Creation
 ### Step 1: Design
 A good way to start designing a table is to do a bit of brainstorming to see what kind of information would be helpful to include. Here’s what I came up with after thinking for a short time about the types of information that describe a person:
+
 ![](pictures/ch02/person_table.png)
+
 ### Step 2: Refinement
 In Chapter 1, you were introduced to the concept of *normalization*, which is the process of ensuring that there are no duplicate (other than foreign keys) or compound columns in your database design. In looking at the columns in the *person* table a second time, the following issues arise:
 - The *name* column is actually a compound object consisting of a first name and a last name.
 - Since multiple people can have the same name, eye color, birth date, and so forth, there are no columns in the *person* table that guarantee uniqueness.
 - The *address* column is also a compound object consisting of street, city, state/province, country, and postal code.
 - The *favorite_foods* column is a list containing zero, one, or more independent items. It would be best to create a separate table for this data that includes a foreign key to the *person* table so that you know to which person a particular food may be attributed.
+
 ![](pictures/ch02/person_table_second.png)
+
 ![](pictures/ch02/favorite_foods_table.png)
+
 ### Step 3: Building SQL Schema Statements
 Now that the design is complete for the two tables holding information about people and their favorite foods, the next step is to generate SQL statements to create the tables in the database. Here is the statement to create the *person* table:
 ```sql
